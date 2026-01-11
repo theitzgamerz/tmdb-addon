@@ -238,6 +238,28 @@ async function getManifest(config) {
     catalogs = [...catalogs, aiSearchCatalogMovie, aiSearchCatalogSeries];
   }
 
+  // Hidden catalogs for Stremio calendar feature
+  // These receive series IDs from user's library and return metadata with upcoming episodes
+  const calendarVideosCatalog = {
+    id: "calendar-videos",
+    type: "series",
+    name: "Calendar videos",
+    extra: [{ name: "calendarVideosIds", isRequired: true, optionsLimit: 100 }],
+    extraSupported: ["calendarVideosIds"],
+    extraRequired: ["calendarVideosIds"]
+  };
+
+  const lastVideosCatalog = {
+    id: "last-videos",
+    type: "series",
+    name: "Last videos",
+    extra: [{ name: "lastVideosIds", isRequired: true, optionsLimit: 100 }],
+    extraSupported: ["lastVideosIds"],
+    extraRequired: ["lastVideosIds"]
+  };
+
+  catalogs = [...catalogs, calendarVideosCatalog, lastVideosCatalog];
+
   const activeConfigs = [
     `Language: ${language}`,
     `TMDB Account: ${sessionId ? 'Connected' : 'Not Connected'}`,
