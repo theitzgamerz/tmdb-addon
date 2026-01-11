@@ -321,7 +321,7 @@ addon.get("/:catalogChoices?/catalog/:type/:id/:extra?.json", async function (re
   // If replacing Cinemeta, we must return "metasDetailed" for calendar catalogs
   if (config.replaceCinemeta === "true" && (id === "calendar-videos" || id === "last-videos") && metas && metas.metas) {
     metas.metasDetailed = metas.metas;
-    // delete metas.metas; // Optional: delete original if strict structure is required, but keeping it is usually safer
+    delete metas.metas; // Enforce strict structure: only return metasDetailed
   }
 
   respond(res, metas, cacheOpts);
