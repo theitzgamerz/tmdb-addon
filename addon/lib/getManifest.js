@@ -286,6 +286,7 @@ async function getManifest(config) {
     behaviorHints: {
       configurable: true,
       configurationRequired: false,
+      newEpisodeNotifications: true,
     },
     catalogs,
   };
