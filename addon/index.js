@@ -317,6 +317,13 @@ addon.get("/:catalogChoices?/catalog/:type/:id/:extra?.json", async function (re
     staleRevalidate: 7 * 24 * 60 * 60,
     staleError: 14 * 24 * 60 * 60,
   };
+
+  // If replacing Cinemeta, we must return "metasDetailed" for calendar catalogs
+  if (config.replaceCinemeta === "true" && (id === "calendar-videos" || id === "last-videos") && metas && metas.metas) {
+    metas.metasDetailed = metas.metas;
+    // delete metas.metas; // Optional: delete original if strict structure is required, but keeping it is usually safer
+  }
+
   respond(res, metas, cacheOpts);
 });
 
